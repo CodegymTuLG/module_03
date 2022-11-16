@@ -1,4 +1,4 @@
---------------------------
+drop database studentmanagement;
 create database studentmanagement;
 use studentmanagement;
 create table class (

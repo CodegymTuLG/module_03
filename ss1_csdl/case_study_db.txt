@@ -1,0 +1,23 @@
+
+create database furamaproject;
+use furamaproject;
+create table position_master(id int auto_increment auto_increment primary key, position nvarchar(45));
+insert into position_master(position) value ('receptionist'),('waiter'),('specialist'),('supervisor'),('manager'),('director');
+create table level_master(id int auto_increment primary key, `level` nvarchar(45));
+insert into level_master(level) value ('intermediate'),('college'),('university' ),('afteruniversity');
+create table wordpart_master(id int auto_increment primary key, workpart nvarchar(45));
+insert into wordpart_master(workpart) value('sales'),('administration'),('service'),('management');
+create table employee_info(id int auto_increment primary key, name nvarchar(45), birthday date, cardid nvarchar(25), salary double, phonenumber nvarchar(11), email nvarchar(45), address nvarchar(45), positionid int, levelid int, wordpartid int );
+create table customertype_master(id int auto_increment primary key, type nvarchar(45));
+insert into customertype_master(type) value ('Diamond'),('Platinium'),('Gold'),('Silver'),('Member');
+create table customer_info(id int auto_increment primary key, customertypeid int, name nvarchar(45), birthday date, sex bit(1), cardid nvarchar(25), phonenumber nvarchar(11), email nvarchar(45), address nvarchar(45));
+create table contract(id int auto_increment primary key, startdate date, enddate date, deposit nvarchar(45), payment nvarchar(45), employeeid int, customerid int, accompaniedserviceid int);
+create table contractdetail(id int auto_increment primary key,  contractid int, accompaniedserviceid int, conut int);
+create table accompaniedservice_master(id int auto_increment primary key, accompaniedservice nvarchar(45), price double, unit nvarchar(10), status nvarchar(45));
+create table servicetype_master(id int auto_increment primary key, type nvarchar(45));
+insert into servicetype_master (type) value('villa'),('house'),('room');
+create table renttype_master(id int auto_increment primary key, type nvarchar(45));
+insert into renttype_master(type) value ('hour'),('day'),('mounth'),('year');
+
+
+create table service_master(id int auto_increment primary key, service nvarchar(45));
