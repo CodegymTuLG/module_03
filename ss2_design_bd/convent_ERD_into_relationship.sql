@@ -33,14 +33,15 @@ create table vat_tu_phieu_nhap(
 );
 create table sdt(
 id int primary key auto_increment,
-sdt varchar(50)
+ma_ncc int,
+sdt varchar(50),
+foreign key(ma_ncc) references nha_cc(ma_ncc)
 );
 create table nha_cc(
 ma_ncc int primary key auto_increment,
 ten_ncc varchar(50),
 dia_chi varchar(50),
-sdt_id int,
-foreign key(sdt_id) references sdt(id)
+sdt_id int
 );
 create table don_dh(
 so_dh int primary key auto_increment,
