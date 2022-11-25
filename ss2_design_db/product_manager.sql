@@ -15,7 +15,7 @@ foreign key(c_id) references customer(c_id)
 );
 create table product(
  p_id int primary key auto_increment,
- p_name int,
+ p_name varchar(50),
  p_price float
 );
 create table orderdetail(
