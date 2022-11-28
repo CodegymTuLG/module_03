@@ -78,6 +78,3 @@ count int,
 foreign key(contract_id) references contract(contract_id),
 foreign key(accompaniedservice_id) references accompaniedservice_master(accompaniedservice_id)
 );
-
-
-

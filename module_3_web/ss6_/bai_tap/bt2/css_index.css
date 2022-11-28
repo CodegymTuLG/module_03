@@ -1,0 +1,13 @@
+.text_blue{
+    color: blue;
+}
+.text_bold{
+    font-weight: bold;
+}
+h1{
+    font-weight: bold;
+}
+p{
+    text-indent: 50px;
+    margin-right: 50%;
+}

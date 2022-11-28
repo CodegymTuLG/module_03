@@ -87,3 +87,4 @@ begin
 delete from product where id =  id_delete;
 end//
 delimiter ;
+

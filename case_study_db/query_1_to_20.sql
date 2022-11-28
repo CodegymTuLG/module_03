@@ -2,7 +2,7 @@ use furamaproject;
 -- 2.   Hiển thị thông tin của tất cả nhân viên có trong hệ thống có tên bắt đầu là một trong các ký tự “H”, “T” hoặc “K” và có tối đa 15 kí tự.
 select  * from employee_info where (name like 'h%' or name like 't%' or name like 'k%') and character_length(name) <= 15;
 -- 3.	Hiển thị thông tin của tất cả khách hàng có độ tuổi từ 18 đến 50 tuổi và có địa chỉ ở “Đà Nẵng” hoặc “Quảng Trị”.
-select  * from customer_info where datediff(curtime(),birthday)/365 > 18 and datediff(curtime(),birthday)/365 < 50 and (address like '%Đà Nẵng' or address like '%Quảng Trị');
+select  * from customer_info where (datediff(curtime(),birthday)/365.25 between 18 and 50) and (address like '%Đà Nẵng' or address like '%Quảng Trị');
 -- 4.	Đếm xem tương ứng với mỗi khách hàng đã từng đặt phòng bao nhiêu lần. Kết quả hiển thị được sắp xếp tăng dần theo số lần đặt phòng của khách hàng. Chỉ đếm những khách hàng nào có Tên loại khách hàng là “Diamond”.
 select a.customer_id, a.name, count(c.customer_id) as count from customer_info a join customertype_master b on a.customertype_id = b.customertype_id 
 join contract c on a.customer_id = c.customer_id
@@ -67,7 +67,16 @@ join contract_detail cd on am.accompaniedservice_id = cd.accompaniedservice_id
 group by cd.accompaniedservice_id;
 select accompaniedservice_id, accompaniedservice, times from w_count
 where times = (select max(times) from w_count);
-drop view w_count;
+
+select am.accompaniedservice_id, am.accompaniedservice, sum(cd.count) as times from accompaniedservice_master am 
+join contract_detail cd on am.accompaniedservice_id = cd.accompaniedservice_id 
+group by cd.accompaniedservice_id
+having times =(
+select sum(cd.count) as times from accompaniedservice_master am 
+join contract_detail cd on am.accompaniedservice_id = cd.accompaniedservice_id 
+group by cd.accompaniedservice_id
+order by times desc
+limit 1);
 -- 14.	Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất. 
 -- Thông tin hiển thị bao gồm ma_hop_dong, ten_loai_dich_vu, ten_dich_vu_di_kem, so_lan_su_dung (được tính dựa trên việc count các ma_dich_vu_di_kem).
 select c.contract_id, sm.type, am.accompaniedservice, cd.count from contract c 
@@ -101,10 +110,10 @@ group by c.contract_id
 order by a.customer_id;
 update customer_info set customertype_id = 1
 where customertype_id = 2 
-and customertype_id in (select customer_id from w_customer_amount where total > 10000000);
+and customertype_id in (select customer_id from w_customer_amount where total > 1000000);
 drop view w_customer_amount;
 -- 18.	Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng).
-SET FOREIGN_KEY_CHECKS=0;
+set FOREIGN_KEY_CHECKS=0;
 delete from customer_info where customer_id in(
 select ci.customer_id from customer_info ci join
 contract c on ci.customer_id = c.customer_id where year(startdate) <2021);
