@@ -1,0 +1,149 @@
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .col-m-1 {width: 8.33%;}
+    .col-m-2 {width: 16.66%;}
+    .col-m-3 {width: 25%;}
+    .col-m-4 {width: 33.33%;}
+    .col-m-5 {width: 41.66%;}
+    .col-m-6 {width: 50%;}
+    .col-m-7 {width: 58.33%;}
+    .col-m-8 {width: 66.66%;}
+    .col-m-9 {width: 75%;}
+    .col-m-10 {width: 83.33%;}
+    .col-m-11 {width: 91.66%;}
+    .col-m-12 {width: 100%;}
+}
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+}
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.top{
+    background-color: whitesmoke;
+    text-align: left;
+}
+.left{
+    text-align: center;
+}
+.nav{
+    text-align: center;
+    background-color: #CDCDCD;
+}
+.unline-none{
+    text-decoration: none
+}
+.right{
+    text-align: center;
+}
+.list-style-none{
+    list-style: none;
+}
+.main{
+    margin-top: 10px;
+    height: auto;
+}
+.footer{
+    margin: auto;
+}
+.h-56px{
+    height: 56px;
+}
+.h-58px{
+    height: 58px;
+}
+.h-60px{
+    height: 60px;
+}
+.h-62px{
+    height: 62px;
+}
+.h-64px{
+    height: 64px;
+}
+.inline{
+    display: inline !important;
+}
+.block{
+    display: block;
+}
+.center-top-wh{
+    width: 40px;
+    height: 40px;
+    padding: 8px
+}
+.center-top-h{
+    height: 20px;
+    padding: 7px 8px 9px;
+    background-color: #F0F2F5;
+    position: absolute;
+    margin: 8px 8px;
+    border-radius: 50px;
+}
+.menu-image{
+    background-repeat: round no-repeat;
+    background-color: whitesmoke;
+}
+.topleft-image{
+    padding: 7px 8px 9px;
+    position: relative;
+    margin-left: 20%;
+}
+.fixed{
+    position: fixed;
+}
+
+.text-white{
+    color: white;
+}
+.text-in-center{
+    text-align: center;
+}
+.text-in-left{
+    text-align: left;
+}
+.text-in-right{
+    text-align: right;
+}
+.back-black{
+    background-color: #363636;
+}
+.back-gray{
+    background-color: #CDCDCD;
+}
+.back-white{
+    background-color: white;
+}
+.back-gray1{
+    background-color: #4c4c4c;
+}
+.pd-l-8px{
+    padding-left: 8px;
+}
+.pd-l-75{
+    padding-left: 75%;
+}
+.font-sz-30px{
+    font-size: 30px;
+}
+.magin-right{
+    margin-left: 100px;
+}

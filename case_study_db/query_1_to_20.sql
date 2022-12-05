@@ -1,43 +1,77 @@
 use furamaproject;
--- 2.   Hiển thị thông tin của tất cả nhân viên có trong hệ thống có tên bắt đầu là một trong các ký tự “H”, “T” hoặc “K” và có tối đa 15 kí tự.
-select  * from employee_info where (name like 'h%' or name like 't%' or name like 'k%') and character_length(name) <= 15;
--- 3.	Hiển thị thông tin của tất cả khách hàng có độ tuổi từ 18 đến 50 tuổi và có địa chỉ ở “Đà Nẵng” hoặc “Quảng Trị”.
-select  * from customer_info where (datediff(curtime(),birthday)/365.25 between 18 and 50) and (address like '%Đà Nẵng' or address like '%Quảng Trị');
--- 4.	Đếm xem tương ứng với mỗi khách hàng đã từng đặt phòng bao nhiêu lần. Kết quả hiển thị được sắp xếp tăng dần theo số lần đặt phòng của khách hàng. Chỉ đếm những khách hàng nào có Tên loại khách hàng là “Diamond”.
-select a.customer_id, a.name, count(c.customer_id) as count from customer_info a join customertype_master b on a.customertype_id = b.customertype_id 
+-- 2.   Hiển thị thông tin của tất cả nhân viên có trong hệ thống có tên bắt đầu là một trong các ký tự 
+-- “H”, “T” hoặc “K” và có tối đa 15 kí tự.
+select  * from employee_info where (name like 'h%' or name like 't%' or name like 'k%') 
+and character_length(name) <= 15;
+-- 3.	Hiển thị thông tin của tất cả khách hàng có độ tuổi từ 18 đến 50 tuổi và có địa chỉ ở 
+-- “Đà Nẵng” hoặc “Quảng Trị”.
+select  * from customer_info where (datediff(curtime(),birthday)/365.25 between 18 and 50) 
+and (address like '%Đà Nẵng' or address like '%Quảng Trị');
+-- 4.	Đếm xem tương ứng với mỗi khách hàng đã từng đặt phòng bao nhiêu lần. 
+-- Kết quả hiển thị được sắp xếp tăng dần theo số lần đặt phòng của khách hàng. 
+-- Chỉ đếm những khách hàng nào có Tên loại khách hàng là “Diamond”.
+select a.customer_id, a.name, count(c.customer_id) as count from customer_info a 
+join customertype_master b on a.customertype_id = b.customertype_id 
 join contract c on a.customer_id = c.customer_id
 where type = 'Diamond'
 group by c.customer_id
 order by count asc;
--- 5.	Hiển thị ma_khach_hang, ho_ten, ten_loai_khach, ma_hop_dong, ten_dich_vu, ngay_lam_hop_dong, ngay_ket_thuc, tong_tien 
--- (Với tổng tiền được tính theo công thức như sau: Chi Phí Thuê + Số Lượng * Giá, với Số Lượng và Giá là từ bảng dich_vu_di_kem, hop_dong_chi_tiet) cho tất cả các khách hàng đã từng đặt phòng. 
+-- 5.	Hiển thị ma_khach_hang, ho_ten, ten_loai_khach, ma_hop_dong, ten_dich_vu, 
+-- ngay_lam_hop_dong, ngay_ket_thuc, tong_tien 
+-- (Với tổng tiền được tính theo công thức như sau: Chi Phí Thuê + Số Lượng * Giá, 
+-- với Số Lượng và Giá là từ bảng dich_vu_di_kem, hop_dong_chi_tiet) cho tất cả các khách hàng đã từng đặt phòng. 
 -- (những khách hàng nào chưa từng đặt phòng cũng phải hiển thị ra).
-select a.customer_id, a.name, b.type , c.contract_id, d.name, c.startdate, c.enddate, ifnull(sum(if(c.enddate=c.startdate,1,datediff(c.enddate,c.startdate))*d.rentprice)+sum(f.price* e.count),sum(if(c.enddate=c.startdate,1,datediff(c.enddate,c.startdate))*d.rentprice)) as total  from customer_info a join customertype_master b on a.customertype_id = b.customertype_id 
+select a.customer_id, a.name, b.type , c.contract_id, d.name, c.startdate, c.enddate, 
+ifnull(sum(if(c.enddate=c.startdate,1,datediff(c.enddate,c.startdate))*d.rentprice)+
+sum(f.price* e.count),sum(if(c.enddate=c.startdate,1,datediff(c.enddate,c.startdate))*d.rentprice)) as total  
+from customer_info a join customertype_master b on a.customertype_id = b.customertype_id 
 left join contract c on a.customer_id = c.customer_id
 left join service d on c.service_id = d.service_id
 left join contract_detail e on c.contract_id = e.contract_id
 left join accompaniedservice_master f on e.accompaniedservice_id = f.accompaniedservice_id
 group by c.contract_id
 order by a.customer_id;
--- 6.	Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu của tất cả các loại dịch vụ chưa từng được khách hàng thực hiện đặt trong quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3).
-select a.service_id, a.name, a.area, a.rentprice, b.type  from service a join servicetype_master b on a.servicetype_id = b.servicetype_id where service_id not in
-(select service_id from contract where year(startdate) = 2021 and month(startdate) between 1 and 3);
--- 7.	Hiển thị thông tin ma_dich_vu, ten_dich_vu, dien_tich, so_nguoi_toi_da, chi_phi_thue, ten_loai_dich_vu của tất cả các 
--- loại dịch vụ đã từng được khách hàng đặt phòng trong năm 2020 nhưng chưa từng được khách hàng đặt phòng trong năm 2021.
-select s.service_id, s.name, s.area, s.maxperson, s.rentprice, st.type from service s join servicetype_master st on s.servicetype_id = st.servicetype_id where s.service_id in(
-select c.service_id from contract c where c.service_id not in (select c.service_id from contract c where year(startdate) = 2021) and year(startdate) = 2020);
+-- 6.	Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, 
+-- ten_loai_dich_vu của tất cả các loại dịch vụ chưa từng được khách hàng 
+-- thực hiện đặt trong quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3).
+select a.service_id, a.name, a.area, a.rentprice, b.type  from service a 
+join servicetype_master b on a.servicetype_id = b.servicetype_id 
+where service_id not in
+(select service_id from contract where 
+year(startdate) = 2021 and month(startdate) between 1 and 3);
+-- 7.	Hiển thị thông tin ma_dich_vu, ten_dich_vu, dien_tich, so_nguoi_toi_da, 
+-- chi_phi_thue, ten_loai_dich_vu của tất cả các 
+-- loại dịch vụ đã từng được khách hàng đặt phòng trong năm 2020 nhưng 
+-- chưa từng được khách hàng đặt phòng trong năm 2021.
+select s.service_id, s.name, s.area, s.maxperson, s.rentprice, st.type 
+from service s 
+join servicetype_master st on s.servicetype_id = st.servicetype_id 
+where s.service_id in
+(select c.service_id from contract c 
+where c.service_id not in 
+(select c.service_id from contract c where year(startdate) = 2021) and year(startdate) = 2020);
 -- 8.	Hiển thị thông tin ho_ten khách hàng có trong hệ thống, với yêu cầu ho_ten không trùng nhau.
 -- Học viên sử dụng theo 3 cách khác nhau để thực hiện yêu cầu trên.
 select ci.name from customer_info ci group by ci.name;
 
+select ci.name from customer_info ci group by ci.name
+union
 select ci.name from customer_info ci group by ci.name;
 
-select ci.name from customer_info ci group by ci.name;
--- 9.	Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng trong năm 2021 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng.
-select year(startdate) as year, month(startdate) as month, count(contract_id) as 'count contract' from contract group by month(startdate) order by year, month;
+select distinct ci.name from customer_info ci;
+-- 9.	Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng 
+-- trong năm 2021 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng.
+select year(startdate) as year, month(startdate) as month, count(contract_id) as 'count contract' 
+from contract where year(startdate) = 2021
+group by month(startdate) 
+order by month;
 -- 10.	Hiển thị thông tin tương ứng với từng hợp đồng thì đã sử dụng bao nhiêu dịch vụ đi kèm.
--- Kết quả hiển thị bao gồm ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem).
-select c.contract_id, c.startdate, c.enddate, c.deposit, ifnull(sum(count),0) as 'count accompanied service' from contract c left join contract_detail cd on cd.contract_id = c.contract_id group by c.contract_id;
+-- Kết quả hiển thị bao gồm ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, 
+-- so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem).
+select c.contract_id, c.startdate, c.enddate, c.deposit, ifnull(sum(count),0) as 'count accompanied service' 
+from contract c 
+left join contract_detail cd on cd.contract_id = c.contract_id 
+group by c.contract_id;
 -- 11.	Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách hàng có ten_loai_khach là “Diamond” và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
 select am.* from accompaniedservice_master am where accompaniedservice_id  in (
 select cd.accompaniedservice_id from contract_detail cd 
@@ -86,7 +120,7 @@ join accompaniedservice_master am on am.accompaniedservice_id = cd.accompaniedse
 where cd.count = 1;
 -- 15.	Hiển thi thông tin của tất cả nhân viên bao gồm ma_nhan_vien, ho_ten, ten_trinh_do, ten_bo_phan, so_dien_thoai, dia_chi mới chỉ lập được tối đa 3 hợp đồng từ năm 2020 đến 2021.
 select ei.employee_id, ei.name, lm.level, wm.workpart, ei.phonenumber, ei.address from  employee_info ei 
-join level_master lm on lm.level_id = ei.level_id
+join levelevel_masterlevel_masterl_master lm on lm.level_id = ei.level_id
 join workpart_master wm on wm.workpart_id = ei.workpart_id
 join contract c on c.employee_id = ei.employee_id
 where year(startdate) in (2020,2021)
