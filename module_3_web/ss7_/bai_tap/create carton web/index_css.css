@@ -38,15 +38,21 @@
 }
 
 .top{
-    background-color: whitesmoke;
+    background-color: floralwhite;
     text-align: left;
+    box-sizing: border-box;
+    position: fixed;
+    width: 100%;
+    top: 0;
 }
 .left{
     text-align: center;
 }
 .nav{
+    scroll-margin-top: 50px;
     text-align: center;
     background-color: #CDCDCD;
+    padding-top: 56px;
 }
 .unline-none{
     text-decoration: none
@@ -111,8 +117,11 @@
     position: fixed;
 }
 
-.text-white{
-    color: white;
+.text-black{
+    color: black;
+}
+a:hover {
+    color: green;
 }
 .text-in-center{
     text-align: center;
