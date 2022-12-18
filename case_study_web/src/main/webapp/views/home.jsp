@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Home</title>
     <link href="./css/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -36,19 +36,19 @@
     <div class="container-fluid">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="navbar-brand" href="#">Home</a>
+                <a class="navbar-brand" href="/views/home.jsp">Home</a>
             </li>
             <li class="nav-item">
-                <a class="navbar-brand" href="#">Employee</a>
+                <a class="navbar-brand" href="/employee">Employee</a>
             </li>
             <li class="nav-item">
-                <a class="navbar-brand" href="#">Customer</a>
+                <a class="navbar-brand" href="/customer">Customer</a>
             </li>
             <li class="nav-item">
-                <a class="navbar-brand" href="#">Service</a>
+                <a class="navbar-brand" href="/service">Service</a>
             </li>
             <li class="nav-item">
-                <a class="navbar-brand" href="#">Contract</a>
+                <a class="navbar-brand" href="/contract">Contract</a>
             </li>
         </ul>
         <form class="d-flex mt-3">
@@ -113,6 +113,7 @@
             <li class="list-group-item">And a fifth one</li>
         </ul>
     </div>
+    <%--    body--%>
     <div class="col-9"> <h1>BODY</h1></div>
 </div>
 <div class="row" style="height: 5%" >
@@ -120,7 +121,6 @@
         <h1> Footer </h1>
     </footer>
 </div>
-
 <script type="text/javascript" src="./js/bootstrap.js"></script>
 </body>
 </html>
