@@ -1,20 +1,19 @@
-package dao.servicetypemaster;
+package respository.renttypemaster;
 
-import model.Service;
-import model.ServiceTypeMaster;
+import model.RentTypeMaster;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceTypeMasterDAO implements IServiceTypeMasterDAO{
+public class RentTypeMasterRespository implements IRentTypeMasterRespository {
     private String jdbcURL = "jdbc:mysql://localhost:3306/furamaproject?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "12345678";
 
-    private static final String SELECT_ALL_SERVICETYPEMASTER = "select * from servicetype_master";
+    private static final String SELECT_ALL_RENTTYPEMASTER = "select * from renttype_master";
 
-    public ServiceTypeMasterDAO() {
+    public RentTypeMasterRespository() {
     }
 
     protected Connection getConnection() {
@@ -32,29 +31,30 @@ public class ServiceTypeMasterDAO implements IServiceTypeMasterDAO{
         return connection;
     }
     @Override
-    public List<ServiceTypeMaster> selectAllServiceTypeMaster() {
-        // using try-with-resources to avoid closing resources (boiler plate code)
-        List<ServiceTypeMaster> serviceTypeMasters = new ArrayList<>();
+    public List<RentTypeMaster> selectAllRentTypeMaster() {
+// using try-with-resources to avoid closing resources (boiler plate code)
+        List<RentTypeMaster> rentTypeMasters = new ArrayList<>();
         // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
 
              // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_SERVICETYPEMASTER);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_RENTTYPEMASTER);) {
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
 
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
-                int servicetype_id = rs.getInt("servicetype_id");
+                int renttype_id = rs.getInt("renttype_id");
                 String type = rs.getString("type");
-                serviceTypeMasters.add(new ServiceTypeMaster(servicetype_id, type));
+                rentTypeMasters.add(new RentTypeMaster(renttype_id, type));
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return serviceTypeMasters;
+        return rentTypeMasters;
     }
+
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
@@ -70,4 +70,6 @@ public class ServiceTypeMasterDAO implements IServiceTypeMasterDAO{
             }
         }
     }
+
+
 }

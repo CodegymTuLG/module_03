@@ -1,9 +1,9 @@
-package dao.servicetypemaster;
+package respository.servicetypemaster;
 
 import model.ServiceTypeMaster;
 
 import java.util.List;
 
-public interface IServiceTypeMasterDAO {
+public interface IServiceTypeMasterRespository {
     List<ServiceTypeMaster> selectAllServiceTypeMaster();
 }

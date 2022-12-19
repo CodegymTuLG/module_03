@@ -1,4 +1,4 @@
-package dao.service;
+package service.service;
 
 import model.Service;
 
@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceDAO implements IServiceDAO{
+public class FacilityService implements IFacilityService {
     private String jdbcURL = "jdbc:mysql://localhost:3306/furamaproject?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "12345678";
@@ -24,7 +24,7 @@ public class ServiceDAO implements IServiceDAO{
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
 
-    public ServiceDAO() {
+    public FacilityService() {
     }
 
     protected Connection getConnection() {

@@ -1,10 +1,9 @@
-package dao.renttypemaster;
+package respository.renttypemaster;
 
 import model.RentTypeMaster;
-import model.ServiceTypeMaster;
 
 import java.util.List;
 
-public interface IRentTypeMasterDAO {
+public interface IRentTypeMasterRespository {
     List<RentTypeMaster> selectAllRentTypeMaster();
 }

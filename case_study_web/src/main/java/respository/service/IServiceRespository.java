@@ -1,11 +1,11 @@
-package dao.service;
+package respository.service;
 
 import model.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IServiceDAO {
+public interface IServiceRespository {
     public void insertService(Service service) throws SQLException;
 
     public List<Service> selectAllService();
