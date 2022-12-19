@@ -6,19 +6,33 @@ public class Service {
     private int area;
     private int rentprice;
     private int maxperson;
+    private String renttype;
     private int renttype_id;
+    private String servicetype;
     private int servicetype_id;
     private String standar;
     private String other_service_description;
     private double pool_area;
     private int floor;
     private String free_service;
-
     public Service() {
     }
 
-    public Service(int service_id, String name, int area, int rentprice, int maxperson, int renttype_id, int servicetype_id, String standar, String other_service_description, double pool_area, int floor, String free_service) {
+    public Service(int service_id, String name, int area, int rentprice, int maxperson, String renttype, String servicetype, String standar, String other_service_description, double pool_area, int floor, String free_service) {
         this.service_id = service_id;
+        this.name = name;
+        this.area = area;
+        this.rentprice = rentprice;
+        this.maxperson = maxperson;
+        this.renttype = renttype;
+        this.servicetype = servicetype;
+        this.standar = standar;
+        this.other_service_description = other_service_description;
+        this.pool_area = pool_area;
+        this.floor = floor;
+        this.free_service = free_service;
+    }
+    public Service(String name, int area, int rentprice, int maxperson, int renttype_id, int servicetype_id, String standar, String other_service_description, double pool_area, int floor, String free_service) {
         this.name = name;
         this.area = area;
         this.rentprice = rentprice;
@@ -30,6 +44,22 @@ public class Service {
         this.pool_area = pool_area;
         this.floor = floor;
         this.free_service = free_service;
+    }
+
+    public int getRenttype_id() {
+        return renttype_id;
+    }
+
+    public void setRenttype_id(int renttype_id) {
+        this.renttype_id = renttype_id;
+    }
+
+    public int getServicetype_id() {
+        return servicetype_id;
+    }
+
+    public void setServicetype_id(int servicetype_id) {
+        this.servicetype_id = servicetype_id;
     }
 
     public int getService_id() {
@@ -72,20 +102,20 @@ public class Service {
         this.maxperson = maxperson;
     }
 
-    public int getRenttype_id() {
-        return renttype_id;
+    public String getRenttype() {
+        return renttype;
     }
 
-    public void setRenttype_id(int renttype_id) {
-        this.renttype_id = renttype_id;
+    public void setRenttype(String renttype) {
+        this.renttype = renttype;
     }
 
-    public int getServicetype_id() {
-        return servicetype_id;
+    public String getServicetype() {
+        return servicetype;
     }
 
-    public void setServicetype_id(int servicetype_id) {
-        this.servicetype_id = servicetype_id;
+    public void setServicetype(String servicetype) {
+        this.servicetype = servicetype;
     }
 
     public String getStandar() {

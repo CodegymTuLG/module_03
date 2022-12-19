@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "ServiceServlet", urlPatterns = "/service")
@@ -44,14 +45,21 @@ public class ServiceServlet extends HttpServlet {
         }
     }
 
-    private void insertService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-/*        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String country = request.getParameter("country");
-        Service service = new Service(name, email, country);
+    private void insertService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String name = request.getParameter("name");
+        int area = Integer.parseInt(request.getParameter("area"));
+        int rentprice = Integer.parseInt(request.getParameter("rentprice"));
+        int maxperson = Integer.parseInt(request.getParameter("maxperson"));
+        int renttype_id = Integer.parseInt(request.getParameter("renttype_id"));
+        int servicetype_id = Integer.parseInt(request.getParameter("servicetype_id"));
+        String standar = request.getParameter("standar");
+        String other_service_description = request.getParameter("other_service_description");
+        double pool_area = Double.parseDouble(request.getParameter("pool_area"));
+        int floor = Integer.parseInt(request.getParameter("floor"));
+        String free_service = request.getParameter("free_service");
+        Service service = new Service(name, area, rentprice, maxperson, renttype_id, servicetype_id, standar, other_service_description, pool_area, floor, free_service);
         serviceDAO.insertService(service);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/create.jsp");
-        dispatcher.forward(request, response);*/
+        listService(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,10 +87,8 @@ public class ServiceServlet extends HttpServlet {
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<ServiceTypeMaster> serviceTypeMasterList = serviceTypeMasterDAO.selectAllServiceTypeMaster();
         request.setAttribute("serviceTypeMasterList", serviceTypeMasterList);
-
         List<RentTypeMaster> rentTypeMasterList = rentTypeMasterDAO.selectAllRentTypeMaster();
         request.setAttribute("rentTypeMasterList", rentTypeMasterList);
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/service/create.jsp");
         dispatcher.forward(request, response);
     }

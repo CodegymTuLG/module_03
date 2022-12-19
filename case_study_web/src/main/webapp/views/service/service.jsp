@@ -122,8 +122,10 @@
     </div>
     <%--List service--%>
     <div class="col-9"> <h1>Service</h1>
-        <a href="/service?action=create"><button>Register new service</button></a><br>
-        <table class="table table-danger" style="width: 80%;">
+        <div class="d-flex justify-content-end" style="width: 95%;">
+        <a href="/service?action=create"><button class="btn btn-primary">Register new service</button></a><br><br>
+        </div>
+        <table class="table table-danger" style="width: 95%;">
             <tr style="text-align: center">
                 <th>#</th>
                 <th>Service name</th>
@@ -137,22 +139,22 @@
                 <th>Pool area</th>
                 <th>Floor</th>
                 <th>Free service</th>
-                <th>Edit</th>
+                <th>EDIT</th>
                 <th>DELETE</th>
             </tr>
             <c:forEach var="service" items="${serviceList}" varStatus="status">
                 <tr>
                     <td>${service.service_id}</td>
                     <td>${service.name}</td>
-                    <td>${service.area}</td>
-                    <td>${service.rentprice}</td>
-                    <td>${service.maxperson}</td>
-                    <td>${service.renttype_id}</td>
-                    <td>${service.servicetype_id}</td>
+                    <td class="text-end">${service.area}</td>
+                    <td class="text-end">${service.rentprice}</td>
+                    <td class="text-center">${service.maxperson}</td>
+                    <td>${service.renttype}</td>
+                    <td>${service.servicetype}</td>
                     <td>${service.standar}</td>
                     <td>${service.other_service_description}</td>
-                    <td>${service.pool_area}</td>
-                    <td>${service.floor}</td>
+                    <td class="text-end">${service.pool_area}</td>
+                    <td class="text-end">${service.floor}</td>
                     <td>${service.free_service}</td>
                     <td><a href="/home?action=search&id=${service.service_id}"><button class="btn btn-info">edit</button></a></td>
                     <td><a href="/home?action=delete&id=${service.service_id}"><button class="btn btn-danger">delete</button></a></td>
@@ -161,11 +163,11 @@
         </table>
     </div>
 </div>
-<div class="row" style="height: 5%" >
-    <footer class="text-center bg-primary">
-        <h1> Footer </h1>
-    </footer>
-</div>
+<%--<div class="row" style="height: 5%" >--%>
+<%--    <footer class="text-center bg-primary">--%>
+<%--        <h1> Footer </h1>--%>
+<%--    </footer>--%>
+<%--</div>--%>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
 </body>
 </html>

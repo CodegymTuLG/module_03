@@ -50,7 +50,8 @@
 
         </tr>
     </c:forEach>
+    <td colspan="14">${message}</td>
 </table>
-<p>${message}</p>
+
 </body>
 </html>

@@ -120,8 +120,8 @@
         </ul>
     </div>
 <%--Show page add new service--%>
-<div class="col-9"> <h1>CREATE NEW SERVICE</h1>
-    <form class="row g-3">
+<div class="col-9"> <h1>CREATE NEW SERVICE</h1><br>
+    <form action="/service?action=create" method="post" class="row g-3" style="width: 95%">
         <div class="col-md-6">
             <label class="form-label">Service name</label>
             <input type="text" class="form-control" name="name">
@@ -132,13 +132,14 @@
         </div>
         <div class="col-md-4">
             <label class="form-label">Rent Price</label>
-            <input type="number" class="form-control" name="rent_price">
+            <input type="number" class="form-control" name="rentprice">
         </div>
+
         <div class="col-md-3">
             <label class="form-label">Person limit</label>
             <input type="number" class="form-control" name="maxperson">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label class="form-label">Rent Type</label>
             <select name="renttype_id" class="form-select">
                 <c:forEach var="rentTypeMaster" items="${rentTypeMasterList}" varStatus="status">
@@ -146,7 +147,7 @@
                 </c:forEach>
             </select>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label class="form-label">Service Type</label>
             <select name="servicetype_id" class="form-select">
                 <c:forEach var="serviceTypeMaster" items="${serviceTypeMasterList}" varStatus="status">
@@ -154,20 +155,31 @@
                 </c:forEach>
             </select>
         </div>
-        <div class="col-md-2">
-            <label for="inputZip" class="form-label">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
+        <div class="col-md-3">
+            <label class="form-label">Standard</label>
+            <input type="text" class="form-control" name="standar">
         </div>
-        <div class="col-12">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    Check me out
-                </label>
-            </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Other service description</label>
+            <input type="text" class="form-control" name="other_service_description">
         </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Sign in</button>
+        <div class="col-md-3">
+            <label class="form-label">Pool area</label>
+            <input type="number" class="form-control" name="pool_area">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Floor</label>
+            <input type="number" class="form-control" name="floor">
+        </div>
+
+        <div class="col-md-12">
+            <label class="form-label">Free service</label>
+            <input type="text" class="form-control" name="free_service">
+        </div>
+
+        <div class="col-12 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Create</button>
         </div>
     </form>
 </div>
