@@ -1,8 +1,8 @@
 package controller;
 
-import dao.renttypemaster.RentTypeMasterDAO;
-import dao.service.ServiceDAO;
-import dao.servicetypemaster.ServiceTypeMasterDAO;
+import respository.renttypemaster.RentTypeMasterRespository;
+import respository.service.ServiceRespository;
+import respository.servicetypemaster.ServiceTypeMasterRespository;
 import model.RentTypeMaster;
 import model.Service;
 import model.ServiceTypeMaster;
@@ -14,20 +14,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "ServiceServlet", urlPatterns = "/service")
 public class ServiceServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private ServiceDAO serviceDAO;
-    private ServiceTypeMasterDAO serviceTypeMasterDAO;
-    private RentTypeMasterDAO rentTypeMasterDAO;
+    private ServiceRespository serviceDAO;
+    private ServiceTypeMasterRespository serviceTypeMasterDAO;
+    private RentTypeMasterRespository rentTypeMasterDAO;
 
     public void init() {
-        serviceDAO = new ServiceDAO();
-        serviceTypeMasterDAO = new ServiceTypeMasterDAO();
-        rentTypeMasterDAO = new RentTypeMasterDAO();
+        serviceDAO = new ServiceRespository();
+        serviceTypeMasterDAO = new ServiceTypeMasterRespository();
+        rentTypeMasterDAO = new RentTypeMasterRespository();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

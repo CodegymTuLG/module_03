@@ -15,7 +15,7 @@ public class UserDAO implements IUserDAO{
             " (?, ?, ?);";
 
     private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =?";
-    private static final String SELECT_ALL_USERS = "select * from users";
+    private static final String SELECT_ALL_USERS = "select * from users order by name";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
 
@@ -125,6 +125,21 @@ public class UserDAO implements IUserDAO{
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;
+    }
+
+    @Override
+    public List<User> findByName(String name) {
+        List<User> searchResult = new ArrayList<>();
+        List<User> userList = selectAllUsers();
+        if(name.trim().equals("")){
+            return searchResult;
+        }
+        for (User user: userList) {
+            if(user.getName().toLowerCase().contains(name.toLowerCase())){
+                searchResult.add(user);
+            }
+        }
+        return searchResult;
     }
 
     private void printSQLException(SQLException ex) {
