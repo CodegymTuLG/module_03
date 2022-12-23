@@ -1,9 +1,9 @@
-package employee.renttypemaster;
+package respository.workpartmaster;
 
 import model.RentTypeMaster;
 
 import java.util.List;
 
-public interface IFacilityRentTypeMaster {
+public interface IRentTypeMasterRespository {
     List<RentTypeMaster> selectAllRentTypeMaster();
 }

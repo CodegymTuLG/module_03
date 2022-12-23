@@ -1,10 +1,10 @@
-package employee.service;
+package service.employee;
 
 import model.Service;
 import respository.service.IServiceRespository;
 import respository.service.ServiceRespository;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class FacilityService implements IFacilityService {

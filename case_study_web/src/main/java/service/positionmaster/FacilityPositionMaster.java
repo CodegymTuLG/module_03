@@ -1,4 +1,4 @@
-package employee.servicetypemaster;
+package service.positionmaster;
 
 import model.ServiceTypeMaster;
 import respository.servicetypemaster.IServiceTypeMasterRespository;

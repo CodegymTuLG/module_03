@@ -1,11 +1,11 @@
-package service.service;
+package service.employee;
 
 import model.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IFacilityEmployee {
+public interface IFacilityService {
     public void insertService(Service service) throws SQLException;
 
     public List<Service> selectAllService();

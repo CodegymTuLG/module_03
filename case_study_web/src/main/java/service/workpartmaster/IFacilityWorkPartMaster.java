@@ -1,4 +1,4 @@
-package employee.servicetypemaster;
+package service.workpartmaster;
 
 import model.ServiceTypeMaster;
 
