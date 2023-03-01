@@ -11,6 +11,9 @@ public class ServiceTypeMaster {
         this.servicetype_id = servicetype_id;
         this.type = type;
     }
+    public ServiceTypeMaster(int servicetype_id) {
+        this.servicetype_id = servicetype_id;
+    }
 
     public int getServicetype_id() {
         return servicetype_id;

@@ -1,9 +1,10 @@
 package service.positionmaster;
 
+import model.PositionMaster;
 import model.ServiceTypeMaster;
 
 import java.util.List;
 
-public interface IFacilityServiceTypeMaster {
-    List<ServiceTypeMaster> selectAllServiceTypeMaster();
+public interface IFacilityPositionMaster {
+    List<PositionMaster> selectAllPosition();
 }

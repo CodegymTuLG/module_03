@@ -1,4 +1,4 @@
-package employee.renttypemaster;
+package service.renttypemaster;
 
 import model.RentTypeMaster;
 

@@ -10,12 +10,12 @@
 <html>
 <head>
     <title>Create new service</title>
-    <link href="./css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/views/css/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <header class="row navbar navbar-expand-lg navbar-light bg-light" style="height: 7%">
     <div class="container-fluid">
-        <img src="img/logo.png" style = "height:50px">
+        <img src="/views/img/logo.png" style = "height:50px">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,7 +35,7 @@
 </header>
 <nav class="row navbar navbar-expand-lg navbar-light bg-info" style="height: 7%">
     <div class="container-fluid">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
             <li class="nav-item">
                 <a class="navbar-brand" href="/views/home.jsp">Home</a>
             </li>
@@ -114,63 +114,62 @@
             <li class="list-group-item">And a fifth one</li>
         </ul>
     </div>
-<%--Show page add new service--%>
-<div class="col-9"> <h1>CREATE NEW SERVICE</h1><br>
-    <form action="/service?action=create" method="post" class="row g-3" style="width: 95%">
+<%--Show page add new employee--%>
+<div class="col-9"> <h1>CREATE NEW EMPLOYEE</h1><br>
+    <form action="/employee?action=create" method="post" class="row g-3" style="width: 95%">
         <div class="col-md-6">
-            <label class="form-label">Service name</label>
+            <label class="form-label">Employee name</label>
             <input type="text" class="form-control" name="name">
         </div>
         <div class="col-md-2">
-            <label class="form-label">Area</label>
-            <input type="number" class="form-control" name="area">
+            <label class="form-label">Birth day</label>
+            <input type="date" class="form-control" name="birthday">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Card Id</label>
+            <input type="text" class="form-control" name="cardid">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Salary</label>
+            <input type="number" class="form-control" name="salary">
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Phone number</label>
+            <input type="text" class="form-control" name="phonenumber">
         </div>
         <div class="col-md-4">
-            <label class="form-label">Rent Price</label>
-            <input type="number" class="form-control" name="rentprice">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control" name="email">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" name="address">
         </div>
 
-        <div class="col-md-3">
-            <label class="form-label">Person limit</label>
-            <input type="number" class="form-control" name="maxperson">
-        </div>
-        <div class="col-md-3">
-            <label class="form-label">Rent Type</label>
-            <select name="renttype_id" class="form-select">
-                <c:forEach var="rentTypeMaster" items="${rentTypeMasterList}" varStatus="status">
-                    <option value="${rentTypeMaster.renttype_id}">${rentTypeMaster.type}</option>
+        <div class="col-md-4">
+            <label class="form-label">Position</label>
+            <select name="position_id" class="form-select">
+                <c:forEach var="positionMaster" items="${positionMasterList}" varStatus="status">
+                    <option value="${positionMaster.position_id}">${positionMaster.position}</option>
                 </c:forEach>
             </select>
         </div>
-        <div class="col-md-3">
-            <label class="form-label">Service Type</label>
-            <select name="servicetype_id" class="form-select">
-                <c:forEach var="serviceTypeMaster" items="${serviceTypeMasterList}" varStatus="status">
-                    <option value="${serviceTypeMaster.servicetype_id}">${serviceTypeMaster.type}</option>
+        <div class="col-md-4">
+            <label class="form-label">Level</label>
+            <select name="level_id" class="form-select">
+                <c:forEach var="levelMaster" items="${levelMasterList}" varStatus="status">
+                    <option value="${levelMaster.level_id}">${levelMaster.level}</option>
                 </c:forEach>
             </select>
         </div>
-        <div class="col-md-3">
-            <label class="form-label">Standard</label>
-            <input type="text" class="form-control" name="standar">
-        </div>
-
-        <div class="col-md-6">
-            <label class="form-label">Other service description</label>
-            <input type="text" class="form-control" name="other_service_description">
-        </div>
-        <div class="col-md-3">
-            <label class="form-label">Pool area</label>
-            <input type="number" class="form-control" name="pool_area">
-        </div>
-        <div class="col-md-3">
-            <label class="form-label">Floor</label>
-            <input type="number" class="form-control" name="floor">
-        </div>
-
-        <div class="col-md-12">
-            <label class="form-label">Free service</label>
-            <input type="text" class="form-control" name="free_service">
+        <div class="col-md-4">
+            <label class="form-label">Work part</label>
+            <select name="workpart_id" class="form-select">
+                <c:forEach var="workPartMaster" items="${workPartMasterList}" varStatus="status">
+                    <option value="${workPartMaster.workpart_id}">${workPartMaster.workpart}</option>
+                </c:forEach>
+            </select>
         </div>
 
         <div class="col-12 d-flex justify-content-end">
@@ -184,6 +183,6 @@
         <h1> Footer </h1>
     </footer>
 </div>
-<script type="text/javascript" src="./js/bootstrap.js"></script>
+<script type="text/javascript" src="/views/js/bootstrap.js"></script>
 </body>
 </html>

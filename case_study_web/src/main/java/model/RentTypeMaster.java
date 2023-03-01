@@ -11,6 +11,9 @@ public class RentTypeMaster {
         this.renttype_id = renttype_id;
         this.type = type;
     }
+    public RentTypeMaster(int renttype_id) {
+        this.renttype_id = renttype_id;
+    }
 
     public int getRenttype_id() {
         return renttype_id;

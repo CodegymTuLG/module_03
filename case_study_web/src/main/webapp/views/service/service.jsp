@@ -11,17 +11,12 @@
 <html>
 <head>
     <title>Service</title>
-    <link href="./css/bootstrap.css" rel="stylesheet" type="text/css">
-    <style>
-        table, th, td{
-            border: 1px black solid;
-        }
-    </style>
+    <link href="/views/css/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <header class="row navbar navbar-expand-lg navbar-light bg-light" style="height: 7%">
     <div class="container-fluid">
-        <img src="img/logo.png" style = "height:50px">
+        <img src="/views/img/logo.png" style = "height:50px">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,7 +36,7 @@
 </header>
 <nav class="row navbar navbar-expand-lg navbar-light bg-info" style="height: 7%">
     <div class="container-fluid">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
             <li class="nav-item">
                 <a class="navbar-brand" href="/views/home.jsp">Home</a>
             </li>
@@ -81,7 +76,7 @@
 
 </nav>
 <div class = "row" style="height: 81%">
-    <div class="col-3">
+    <div class="col-2">
         <ul class="list-group vh-79 left-nav-scroll">
             <li class="list-group-item">An item</li>
             <li class="list-group-item">A second item</li>
@@ -121,11 +116,12 @@
         </ul>
     </div>
     <%--List service--%>
-    <div class="col-9"> <h1>Service</h1>
+    <div class="col-10"> <h1>Service</h1>
+        <p>${message}</p>
         <div class="d-flex justify-content-end" style="width: 95%;">
         <a href="/service?action=create"><button class="btn btn-primary">Register new service</button></a><br><br>
         </div>
-        <table class="table table-danger" style="width: 95%;">
+        <table class="table table-info" style="width: 98%;">
             <tr style="text-align: center">
                 <th>#</th>
                 <th>Service name</th>
@@ -144,20 +140,30 @@
             </tr>
             <c:forEach var="service" items="${serviceList}" varStatus="status">
                 <tr>
-                    <td>${service.service_id}</td>
-                    <td>${service.name}</td>
-                    <td class="text-end">${service.area}</td>
-                    <td class="text-end">${service.rentprice}</td>
-                    <td class="text-center">${service.maxperson}</td>
-                    <td>${service.renttype}</td>
-                    <td>${service.servicetype}</td>
-                    <td>${service.standar}</td>
-                    <td>${service.other_service_description}</td>
-                    <td class="text-end">${service.pool_area}</td>
-                    <td class="text-end">${service.floor}</td>
-                    <td>${service.free_service}</td>
-                    <td><a href="/home?action=search&id=${service.service_id}"><button class="btn btn-info">edit</button></a></td>
-                    <td><a href="/home?action=delete&id=${service.service_id}"><button class="btn btn-danger">delete</button></a></td>
+                    <td>${service.getService_id()}</td>
+                    <td>${service.getName()}</td>
+                    <td class="text-end">${service.getArea()}</td>
+                    <td class="text-end">${service.getRentprice()}</td>
+                    <td class="text-center">${service.getMaxperson()}</td>
+                    <td>${service.getRentTypeMaster().getType()}</td>
+                    <td>${service.getServiceTypeMaster().getType()}</td>
+                    <td>${service.getStandar()}</td>
+                    <td>${service.getOther_service_description()}</td>
+                    <td class="text-end">${service.getPool_area()}</td>
+                    <td class="text-end">${service.getFloor()}</td>
+                    <td>${service.getFree_service()}</td>
+                    <td>
+                        <form action="/service?action=edit" method="post">
+                            <input type="hidden" name="editServiceId" id="editServiceId" value="${service.getService_id()}">
+                            <button type="submit" class="btn btn-info">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" onclick="deleteService('${service.getService_id()}','${service.getName()}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Delete
+                            </button>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -168,6 +174,33 @@
 <%--        <h1> Footer </h1>--%>
 <%--    </footer>--%>
 <%--</div>--%>
-<script type="text/javascript" src="../js/bootstrap.js"></script>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/service?action=delete" method="post">
+                <div class="modal-body">
+                    <input readonly type="hidden" name="deleteServiceId" id="deleteServiceId">
+                    <span>Do you really want to delete "</span><span id="deleteName"></span><span></span><span>" ?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src=""></script>
+<script>
+ function deleteService(id,name) {
+     document.getElementById("deleteName").innerText = name;
+     document.getElementById("deleteServiceId").value = id;
+ }
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package employee.service;
+package service.service;
 
 import model.Service;
 import respository.service.IServiceRespository;

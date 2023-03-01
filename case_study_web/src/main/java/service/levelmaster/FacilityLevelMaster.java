@@ -1,18 +1,19 @@
 package service.levelmaster;
 
 import model.LevelMaster;
-import model.ServiceTypeMaster;
-import respository.levelmaster.ILevelRespository;
-import respository.levelmaster.LevelRespository;
-import respository.servicetypemaster.IServiceTypeMasterRespository;
-import respository.servicetypemaster.ServiceTypeMasterRespository;
+import respository.customertype.ICustomerTypeRespository;
+import respository.customertype.CustomerTypeRespository;
+import respository.levelmaster.ILevelMasterRespository;
+import respository.levelmaster.LevelMasterRespository;
+import respository.positionmaster.IPositionMasterRespository;
+import respository.positionmaster.PositionMasterRespository;
 
 import java.util.List;
 
-public class FacilityLevel implements IFacilityLevel {
-    ILevelRespository levelRespository = new LevelRespository();
+public class FacilityLevelMaster implements IFacilityLevelMaster {
+     ILevelMasterRespository levelMasterRespository = new LevelMasterRespository();
     @Override
     public List<LevelMaster> selectAllLevel() {
-        return levelRespository.selectAllLevel();
+        return levelMasterRespository.selectAllLevel();
     }
 }

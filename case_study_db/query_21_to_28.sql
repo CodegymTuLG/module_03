@@ -15,6 +15,28 @@ begin
 delete from product where customer_id =  id_delete;
 end//
 delimiter ;
+
+delimiter //
+create procedure sp_delete_service(IN delete_id int)
+begin
+delete from service where service_id =  delete_id;
+end//
+delimiter ;
+call sp_delete_service(19)
+delimiter //
+create procedure sp_delete_employee_info(IN delete_id int)
+begin
+delete from employee_info where employee_id =  delete_id;
+end//
+delimiter ;
+call sp_delete_employee_info(19)
+delimiter //
+create procedure sp_delete_customer(IN delete_id int)
+begin
+delete from customer_info where customer_id =  delete_id;
+end//
+delimiter ;
+call sp_delete_service(19)
 -- 24.	Tạo Stored Procedure sp_them_moi_hop_dong dùng để thêm mới vào bảng hop_dong với yêu cầu sp_them_moi_hop_dong phải thực hiện kiểm tra tính hợp lệ của dữ liệu bổ sung, 
 -- với nguyên tắc không được trùng khóa chính và đảm bảo toàn vẹn tham chiếu đến các bảng liên quan.
 drop procedure sp_add_contract;

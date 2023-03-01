@@ -5,6 +5,6 @@ import model.ServiceTypeMaster;
 
 import java.util.List;
 
-public interface IFacilityLevel {
+public interface IFacilityLevelMaster {
     List<LevelMaster> selectAllLevel();
 }

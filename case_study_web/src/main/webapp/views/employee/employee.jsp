@@ -10,13 +10,13 @@
 
 <html>
 <head>
-    <title>Service</title>
-    <link href="./css/bootstrap.css" rel="stylesheet" type="text/css">
+    <title>Employee</title>
+    <link href="/views/css/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <header class="row navbar navbar-expand-lg navbar-light bg-light" style="height: 7%">
     <div class="container-fluid">
-        <img src="img/logo.png" style = "height:50px">
+        <img src="/views/img/logo.png" style = "height:50px">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,7 +36,7 @@
 </header>
 <nav class="row navbar navbar-expand-lg navbar-light bg-info" style="height: 7%">
     <div class="container-fluid">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
             <li class="nav-item">
                 <a class="navbar-brand" href="/views/home.jsp">Home</a>
             </li>
@@ -115,52 +115,50 @@
             <li class="list-group-item">And a fifth one</li>
         </ul>
     </div>
-    <%--List service--%>
-    <div class="col-10"> <h1>Service</h1>
-        <p>${message}</p>
+    <%--List Employee--%>
+    <div class="col-10"> <h1>Employee</h1>
+       <p>${message}</p>
         <div class="d-flex justify-content-end" style="width: 95%;">
-        <a href="/service?action=create"><button class="btn btn-primary">Register new service</button></a><br><br>
+        <a href="/employee?action=create"><button class="btn btn-primary">Register new employee</button></a><br><br>
         </div>
-        <table class="table table-danger" style="width: 95%;">
+        <table class="table table-info" style="width: 98%;">
             <tr style="text-align: center">
                 <th>#</th>
-                <th>Service name</th>
-                <th>Area</th>
-                <th>Rent price</th>
-                <th>Person limit</th>
-                <th>Rent type</th>
-                <th>Service type</th>
-                <th>Standar</th>
-                <th>Other service description</th>
-                <th>Pool area</th>
-                <th>Floor</th>
-                <th>Free service</th>
+                <th>Employee name</th>
+                <th style="width: 100px">Birth day</th>
+                <th>Card id</th>
+                <th>Salary</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Position</th>
+                <th>Level</th>
+                <th>Work part</th>
                 <th>EDIT</th>
                 <th>DELETE</th>
             </tr>
-            <c:forEach var="service" items="${serviceList}" varStatus="status">
+            <c:forEach var="employee" items="${employeeList}" varStatus="status">
                 <tr>
-                    <td>${service.getService_id()}</td>
-                    <td>${service.getName()}</td>
-                    <td class="text-end">${service.getArea()}</td>
-                    <td class="text-end">${service.getRentprice()}</td>
-                    <td class="text-center">${service.getMaxperson()}</td>
-                    <td>${service.getRentTypeMaster().getType()}</td>
-                    <td>${service.getServiceTypeMaster().getType()}</td>
-                    <td>${service.getStandar()}</td>
-                    <td>${service.getOther_service_description()}</td>
-                    <td class="text-end">${service.getPool_area()}</td>
-                    <td class="text-end">${service.getFloor()}</td>
-                    <td>${service.getFree_service()}</td>
+                    <td>${employee.getEmployee_id()}</td>
+                    <td>${employee.getName()}</td>
+                    <td class="text-end">${employee.getBirthday()}</td>
+                    <td class="text-end">${employee.getCardid()}</td>
+                    <td class="text-center">${employee.getSalary()}</td>
+                    <td>${employee.getPhonenumber()}</td>
+                    <td>${employee.getEmail()}</td>
+                    <td>${employee.getAddress()}</td>
+                    <td>${employee.getPositionMaster().getPosition()}</td>
+                    <td>${employee.getLevelMaster().getLevel()}</td>
+                    <td>${employee.getWorkPartMaster().getWorkpart()}</td>
                     <td>
-                        <form action="/service?action=edit" method="post">
-                            <input type="hidden" name="editServiceId" id="editServiceId" value="${service.getService_id()}">
+                        <form action="/employee?action=edit" method="post">
+                            <input type="hidden" name="editEmployeeId" id="editEmployeeId" value="${employee.getEmployee_id()}">
                             <button type="submit" class="btn btn-info">Edit</button>
                         </form>
                     </td>
                     <td>
                             <!-- Button trigger modal -->
-                            <button type="button" onclick="deleteService('${service.getService_id()}','${service.getName()}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" onclick="deleteEmployee('${employee.getEmployee_id()}','${employee.getName()}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Delete
                             </button>
                     </td>
@@ -182,9 +180,9 @@
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/service?action=delete" method="post">
+            <form action="/employee?action=delete" method="post">
                 <div class="modal-body">
-                    <input readonly type="hidden" name="deleteServiceId" id="deleteServiceId">
+                    <input readonly type="hidden" name="deleteEmployeeId" id="deleteEmployeeId">
                     <span>Do you really want to delete "</span><span id="deleteName"></span><span></span><span>" ?</span>
                 </div>
                 <div class="modal-footer">
@@ -195,11 +193,11 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="../js/bootstrap.js"></script>
+<script type="text/javascript" src="/views/js/bootstrap.js"></script>
 <script>
- function deleteService(id,name) {
+ function deleteEmployee(id,name) {
      document.getElementById("deleteName").innerText = name;
-     document.getElementById("deleteServiceId").value = id;
+     document.getElementById("deleteEmployeeId").value = id;
  }
 </script>
 </body>

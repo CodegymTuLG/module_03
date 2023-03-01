@@ -5,7 +5,7 @@ create table position_master(position_id int auto_increment auto_increment prima
 position varchar(45));
 create table level_master(level_id int auto_increment primary key, 
 `level` varchar(45));
-create table wordpart_master(wordpart_id int auto_increment primary key, 
+create table workpart_master(workpart_id int auto_increment primary key, 
 workpart varchar(45));
 create table employee_info(employee_id int auto_increment primary key, 
 name varchar(45), 
@@ -17,10 +17,10 @@ email varchar(45),
 address varchar(45), 
 position_id int, 
 level_id int, 
-wordpart_id int,
+workpart_id int,
 foreign key(position_id) references position_master(position_id),
 foreign key(level_id) references level_master(level_id),
-foreign key(wordpart_id) references wordpart_master(wordpart_id)
+foreign key(workpart_id) references workpart_master(workpart_id)
 );
 create table customertype_master(customertype_id int auto_increment primary key, 
 type varchar(45));

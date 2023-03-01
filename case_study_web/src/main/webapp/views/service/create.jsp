@@ -10,17 +10,12 @@
 <html>
 <head>
     <title>Create new service</title>
-    <link href="./css/bootstrap.css" rel="stylesheet" type="text/css">
-    <style>
-        table, th, td{
-            border: 1px black solid;
-        }
-    </style>
+    <link href="/views/css/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <header class="row navbar navbar-expand-lg navbar-light bg-light" style="height: 7%">
     <div class="container-fluid">
-        <img src="img/logo.png" style = "height:50px">
+        <img src="/views/img/logo.png" style = "height:50px">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,7 +35,7 @@
 </header>
 <nav class="row navbar navbar-expand-lg navbar-light bg-info" style="height: 7%">
     <div class="container-fluid">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
             <li class="nav-item">
                 <a class="navbar-brand" href="/views/home.jsp">Home</a>
             </li>
@@ -189,6 +184,6 @@
         <h1> Footer </h1>
     </footer>
 </div>
-<script type="text/javascript" src="./js/bootstrap.js"></script>
+<script type="text/javascript" src="/views/js/bootstrap.js"></script>
 </body>
 </html>

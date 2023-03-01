@@ -1,6 +1,6 @@
 package respository.workpartmaster;
 
-import model.RentTypeMaster;
+import model.WorkPartMaster;
 import respository.BaseRepository;
 
 import java.sql.Connection;
@@ -10,30 +10,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RentTypeMasterRespository implements IRentTypeMasterRespository {
-    private static final String SELECT_ALL_RENTTYPEMASTER = "select * from renttype_master";
+public class WorkPartMasterRespository implements IWorkPartMasterRespository {
+    private static final String SELECT_ALL_WORKPARTMASTER = "select * from workpart_master";
 
-    public RentTypeMasterRespository() {
+    public WorkPartMasterRespository() {
     }
 
     @Override
-    public List<RentTypeMaster> selectAllRentTypeMaster() {
+    public List<WorkPartMaster> selectAllWorkPart() {
 
-        List<RentTypeMaster> rentTypeMasters = new ArrayList<>();
+        List<WorkPartMaster> workPartMasters = new ArrayList<>();
 
         try (Connection connection = BaseRepository.getConnectDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_RENTTYPEMASTER);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_WORKPARTMASTER);) {
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int renttype_id = rs.getInt("renttype_id");
-                String type = rs.getString("type");
-                rentTypeMasters.add(new RentTypeMaster(renttype_id, type));
+                int workpart_id = rs.getInt("workpart_id");
+                String workpart = rs.getString("workpart");
+                workPartMasters.add(new WorkPartMaster(workpart_id, workpart));
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return rentTypeMasters;
+        return workPartMasters;
     }
 
     private void printSQLException(SQLException ex) {

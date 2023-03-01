@@ -9,13 +9,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Edit service</title>
-    <link href="./css/bootstrap.css" rel="stylesheet" type="text/css">
+    <title>Edit employee</title>
+    <link href="/views/css/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <header class="row navbar navbar-expand-lg navbar-light bg-light" style="height: 7%">
     <div class="container-fluid">
-        <img src="img/logo.png" style = "height:50px">
+        <img src="/views/img/logo.png" style = "height:50px">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,7 +35,7 @@
 </header>
 <nav class="row navbar navbar-expand-lg navbar-light bg-info" style="height: 7%">
     <div class="container-fluid">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
             <li class="nav-item">
                 <a class="navbar-brand" href="/views/home.jsp">Home</a>
             </li>
@@ -114,79 +114,85 @@
             <li class="list-group-item">And a fifth one</li>
         </ul>
     </div>
-    <%--Show page edt service--%>
+    <%--Show page edt employee--%>
 
-    <div class="col-9"> <h1>EDIT SERVICE</h1><br>
-        <form action="/service?action=update" method="post" class="row g-3" style="width: 95%">
-            <input type="hidden" name="service_id" value="<c:out value="${service.getService_id()}"></c:out>">
+    <div class="col-9"> <h1>EDIT EMPLOYEE</h1><br>
+        <form action="/employee?action=update" method="post" class="row g-3" style="width: 95%">
+            <input type="hidden" name="employee_id" value="<c:out value="${employee.getEmployee_id()}"></c:out>">
             <div class="col-md-6">
-                <label class="form-label">Service name</label>
-                <input type="text" class="form-control" name="name" value="<c:out value="${service.getName()}"></c:out> ">
+                <label class="form-label">Employee name</label>
+                <input type="text" class="form-control" name="name" value="<c:out value="${employee.getName()}"></c:out> ">
             </div>
             <div class="col-md-2">
-                <label class="form-label">Area</label>
-                <input type="number" class="form-control" name="area" value="<c:out value="${service.getArea()}"></c:out>">
+                <label class="form-label">Birth day</label>
+                <input type="date" class="form-control" name="birthday" value="<c:out value="${employee.getBirthday()}"></c:out>">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Card Id</label>
+                <input type="text" class="form-control" name="cardid" value="<c:out value="${employee.getCardid()}"></c:out>">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Salary</label>
+                <input type="number" class="form-control" name="salary" value="<c:out value="${employee.getSalary()}"></c:out>">
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Phone number</label>
+                <input type="number" class="form-control" name="phonenumber" value="<c:out value="${employee.getPhonenumber()}"></c:out>">
             </div>
             <div class="col-md-4">
-                <label class="form-label">Rent Price</label>
-                <input type="number" class="form-control" name="rentprice" value="<c:out value="${service.getRentprice()}"></c:out>">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" name="email" value="<c:out value="${employee.getEmail()}"></c:out>">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Address</label>
+                <input type="text" class="form-control" name="address" value="<c:out value="${employee.getAddress()}"></c:out>">
             </div>
 
-            <div class="col-md-3">
-                <label class="form-label">Person limit</label>
-                <input type="number" class="form-control" name="maxperson" value="<c:out value="${service.getMaxperson()}"></c:out>">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Rent Type</label>
-                <select name="renttype_id" class="form-select">
-                    <c:forEach var="rentTypeMaster" items="${rentTypeMasterList}" varStatus="status">
+            <div class="col-md-4">
+                <label class="form-label">Position</label>
+                <select name="position_id" class="form-select">
+                    <c:forEach var="positionMaster" items="${positionMasterList}" varStatus="status">
                         <c:choose>
-                            <c:when test="${rentTypeMaster.getRenttype_id()}==${rt}">
-                                <option selected value="${rentTypeMaster.getRenttype_id()}">${rentTypeMaster.getType()}</option>
+                            <c:when test="${positionMaster.getPosition_id()}==${pm}">
+                                <option selected value="${positionMaster.getPosition_id()}">${positionMaster.getPosition()}</option>
                             </c:when>
                             <c:otherwise>
-                                <option selected value="${rentTypeMaster.getRenttype_id()}">${rentTypeMaster.getType()}</option>
+                                <option selected value="${positionMaster.getPosition_id()}">${positionMaster.getPosition()}</option>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                 </select>
             </div>
-            <div class="col-md-3">
-                <label class="form-label">Service Type</label>
-                <select name="servicetype_id" class="form-select">
-                    <c:forEach var="serviceTypeMaster" items="${serviceTypeMasterList}" varStatus="status">
+            <div class="col-md-4">
+                <label class="form-label">Level</label>
+                <select name="level_id" class="form-select">
+                    <c:forEach var="levelMaster" items="${levelMasterList}" varStatus="status">
                         <c:choose>
-                            <c:when test="${serviceTypeMaster.getServicetype_id()}==${svt}">
-                                <option selected value="${serviceTypeMaster.getServicetype_id()}">${serviceTypeMaster.getType()}</option>
+                            <c:when test="${levelMaster.getLevel_id()}==${lm}">
+                                <option selected value="${levelMaster.getLevel_id()}">${levelMaster.getLevel()}</option>
                             </c:when>
                             <c:otherwise>
-                                <option selected value="${serviceTypeMaster.getServicetype_id()}">${serviceTypeMaster.getType()}</option>
+                                <option selected value="${levelMaster.getLevel_id()}">${levelMaster.getLevel()}</option>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                 </select>
             </div>
-            <div class="col-md-3">
-                <label class="form-label">Standard</label>
-                <input type="text" class="form-control" name="standar" value="<c:out value="${service.getStandar()}"></c:out>">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Other service description</label>
-                <input type="text" class="form-control" name="other_service_description" value="<c:out value="${service.getOther_service_description()}"></c:out>">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Pool area</label>
-                <input type="number" class="form-control" name="pool_area" value="<c:out value="${service.getPool_area()}"></c:out>">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Floor</label>
-                <input type="number" class="form-control" name="floor" value="<c:out value="${service.getFloor()}"></c:out>">
-            </div>
-
-            <div class="col-md-12">
-                <label class="form-label">Free service</label>
-                <input type="text" class="form-control" name="free_service" value="<c:out value="${service.getFree_service()}"></c:out>">
+            <div class="col-md-4">
+                <label class="form-label">Work part</label>
+                <select name="workPart_id" class="form-select">
+                    <c:forEach var="workpartMaster" items="${workPartMasterList}" varStatus="status">
+                        <c:choose>
+                            <c:when test="${workpartMaster.getWorkpart_id()}==${wm}">
+                                <option selected value="${workpartMaster.getWorkpart_id()}">${workpartMaster.getWorkpart()}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option selected value="${workpartMaster.getWorkpart_id()}">${workpartMaster.getWorkpart()}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>
             </div>
 
             <div class="col-12 d-flex justify-content-end">
@@ -200,6 +206,6 @@
         <h1> Footer </h1>
     </footer>
 </div>
-<script type="text/javascript" src="./js/bootstrap.js"></script>
+<script type="text/javascript" src="/views/js/bootstrap.js"></script>
 </body>
 </html>

@@ -1,14 +1,14 @@
 package controller;
 
-import model.RentTypeMaster;
-import model.Service;
-import model.ServiceTypeMaster;
-import service.renttypemaster.FacilityRentTypeMaster;
-import service.renttypemaster.IFacilityRentTypeMaster;
-import service.service.FacilityService;
-import service.service.IFacilityService;
-import service.servicetypemaster.FacilityServiceTypeMaster;
-import service.servicetypemaster.IFacilityServiceTypeMaster;
+import model.*;
+import service.employee.FacilityEmployee;
+import service.employee.IFacilityEmployee;
+import service.levelmaster.FacilityLevelMaster;
+import service.levelmaster.IFacilityLevelMaster;
+import service.positionmaster.FacilityPositionMaster;
+import service.positionmaster.IFacilityPositionMaster;
+import service.workpartmaster.FacilityWorkPartMaster;
+import service.workpartmaster.IFacilityWorkPartMaster;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,12 +20,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "ServiceServlet", urlPatterns = "/service")
-public class ServiceServlet extends HttpServlet {
+@WebServlet(name = "EmployeeServlet", urlPatterns = "/employee")
+public class EmployeeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private IFacilityService facilityService = new FacilityService();
-    private IFacilityServiceTypeMaster facilityServiceTypeMaster = new FacilityServiceTypeMaster();
-    private IFacilityRentTypeMaster iFacilityRentTypeMaster = new FacilityRentTypeMaster();
+    private IFacilityEmployee facilityEmployee = new FacilityEmployee();
+    private IFacilityLevelMaster facilityLevelMaster = new FacilityLevelMaster();
+    private IFacilityPositionMaster facilityPositionMaster = new FacilityPositionMaster();
+    private IFacilityWorkPartMaster facilityWorkPartMaster = new FacilityWorkPartMaster();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -34,16 +35,16 @@ public class ServiceServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
-                insertService(request, response);
+                insertEmployee(request, response);
                 break;
             case "edit":
                 showEditForm(request, response);
                 break;
             case "update":
-                updateService(request, response);
+                updateEmployee(request, response);
                 break;
             case "delete":
-                deleteService(request, response);
+                deleteEmployee(request, response);
                 break;
         }
     }
@@ -59,28 +60,32 @@ public class ServiceServlet extends HttpServlet {
                 showNewForm(request, response);
                 break;
             default:
-                listService(request, response);
+                listEmployee(request, response);
                 break;
         }
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
 
-        List<Service> serviceList = facilityService.selectAllService();
-        List<ServiceTypeMaster> serviceTypeMasterList = facilityServiceTypeMaster.selectAllServiceTypeMaster();
-        List<RentTypeMaster> rentTypeMasterList = iFacilityRentTypeMaster.selectAllRentTypeMaster();
-        request.setAttribute("serviceTypeMasterList", serviceTypeMasterList);
-        request.setAttribute("rentTypeMasterList", rentTypeMasterList);
-        int service_id = Integer.parseInt(request.getParameter("editServiceId"));
+        List<Employee> employeeList = facilityEmployee.selectAllEmployee();
+        List<PositionMaster> positionMasterList = facilityPositionMaster.selectAllPosition();
+        List<LevelMaster> levelMasterList = facilityLevelMaster.selectAllLevel();
+        List<WorkPartMaster> workPartMasterList = facilityWorkPartMaster.selectAllWorkPart();
+        request.setAttribute("positionMasterList", positionMasterList);
+        request.setAttribute("levelMasterList", levelMasterList);
+        request.setAttribute("workPartMasterList", workPartMasterList);
+        int editEmployeeId = Integer.parseInt(request.getParameter("editEmployeeId"));
 
-        for (Service sv: serviceList) {
-            if(sv.getService_id()==service_id){
-                request.setAttribute("service", sv);
-                int rt = sv.getRentTypeMaster().getRenttype_id();
-                int svt = sv.getServiceTypeMaster().getServicetype_id();
-                request.setAttribute("rt", rt);
-                request.setAttribute("svt", svt);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("views/service/edit.jsp");
+        for (Employee ep: employeeList) {
+            if(ep.getEmployee_id()==editEmployeeId){
+                request.setAttribute("employee", ep);
+                int pm = ep.getPositionMaster().getPosition_id();
+                int lm = ep.getLevelMaster().getLevel_id();
+                int wm = ep.getWorkPartMaster().getWorkpart_id();
+                request.setAttribute("pm", pm);
+                request.setAttribute("lm", lm);
+                request.setAttribute("wm", wm);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("views/employee/edit.jsp");
                 try {
                     dispatcher.forward(request, response);
                 } catch (ServletException | IOException e) {
@@ -92,48 +97,48 @@ public class ServiceServlet extends HttpServlet {
         }
     }
 
-    private void updateService(HttpServletRequest request, HttpServletResponse response) {
-        int service_id = Integer.parseInt(request.getParameter("service_id"));
+    private void updateEmployee(HttpServletRequest request, HttpServletResponse response) {
+        int employee_id = Integer.parseInt(request.getParameter("employee_id"));
         String name = request.getParameter("name");
-        int area = Integer.parseInt(request.getParameter("area"));
-        int rentprice = Integer.parseInt(request.getParameter("rentprice"));
-        int maxperson = Integer.parseInt(request.getParameter("maxperson"));
-        int renttype_id = Integer.parseInt(request.getParameter("renttype_id"));
-        RentTypeMaster rentTypeMaster = new RentTypeMaster(renttype_id);
-        int servicetype_id = Integer.parseInt(request.getParameter("servicetype_id"));
-        ServiceTypeMaster serviceTypeMaster = new ServiceTypeMaster(servicetype_id);
-        String standar = request.getParameter("standar");
-        String other_service_description = request.getParameter("other_service_description");
-        double pool_area = Double.parseDouble(request.getParameter("pool_area"));
-        int floor = Integer.parseInt(request.getParameter("floor"));
-        String free_service = request.getParameter("free_service");
-        Service service = new Service(service_id ,name, area, rentprice, maxperson, rentTypeMaster, serviceTypeMaster, standar, other_service_description, pool_area, floor, free_service);
+        String birthday = request.getParameter("birthday");
+        String cardid = request.getParameter("cardid");
+        double salary = Double.parseDouble(request.getParameter("salary"));
+        String phonenumber = request.getParameter("phonenumber");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        int position_id = Integer.parseInt(request.getParameter("position_id"));
+        PositionMaster positionMaster = new PositionMaster(position_id);
+        int levelMaster_id = Integer.parseInt(request.getParameter("level_id"));
+        LevelMaster levelMaster = new LevelMaster(levelMaster_id);
+        int workPartMaster_id = Integer.parseInt(request.getParameter("workPart_id"));
+        WorkPartMaster workPartMaster = new WorkPartMaster(workPartMaster_id);
+        Employee employee = new Employee(employee_id, name, birthday, cardid, salary, phonenumber, email, address, positionMaster, levelMaster, workPartMaster);
         String mess = "Update success !";
         try {
             boolean checkDelete;
-            checkDelete = facilityService.updateService(service);
+            checkDelete = facilityEmployee.updateEmployee(employee);
             if (!checkDelete) {
                 mess = "Update fail !";
             }
             request.setAttribute("mess", mess);
-            listService(request,response);
+            listEmployee(request,response);
         } catch (SQLException | ServletException | IOException throwables) {
             throwables.printStackTrace();
             System.out.println(throwables.getMessage());
         }
     }
 
-    private void deleteService(HttpServletRequest request, HttpServletResponse response){
-        int service_id = Integer.parseInt(request.getParameter("deleteServiceId"));
+    private void deleteEmployee(HttpServletRequest request, HttpServletResponse response){
+        int employee_id = Integer.parseInt(request.getParameter("deleteEmployeeId"));
         boolean checkDelete = false;
         try {
-            checkDelete = facilityService.deleteService(service_id);
+            checkDelete = facilityEmployee.deleteEmployee(employee_id);
             String mess = "Delete success !";
             if (!checkDelete) {
                 mess = "Delete fail !";
             }
             request.setAttribute("message", mess);
-            listService(request,response);
+            listEmployee(request,response);
         } catch (SQLException | ServletException | IOException throwables) {
             throwables.printStackTrace();
             System.out.println(throwables.getMessage());
@@ -141,43 +146,45 @@ public class ServiceServlet extends HttpServlet {
 
     }
 
-    private void insertService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void insertEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String name = request.getParameter("name");
-        int area = Integer.parseInt(request.getParameter("area"));
-        int rentprice = Integer.parseInt(request.getParameter("rentprice"));
-        int maxperson = Integer.parseInt(request.getParameter("maxperson"));
-        int renttype_id = Integer.parseInt(request.getParameter("renttype_id"));
-        RentTypeMaster rentTypeMaster = new RentTypeMaster(renttype_id);
-        int servicetype_id = Integer.parseInt(request.getParameter("servicetype_id"));
-        ServiceTypeMaster serviceTypeMaster = new ServiceTypeMaster(servicetype_id);
-        String standar = request.getParameter("standar");
-        String other_service_description = request.getParameter("other_service_description");
-        double pool_area = Double.parseDouble(request.getParameter("pool_area"));
-        int floor = Integer.parseInt(request.getParameter("floor"));
-        String free_service = request.getParameter("free_service");
-        Service service = new Service(name, area, rentprice, maxperson, rentTypeMaster, serviceTypeMaster, standar, other_service_description, pool_area, floor, free_service);
+        String birthday = request.getParameter("birthday");
+        String cardid = request.getParameter("cardid");
+        double salary = Integer.parseInt(request.getParameter("salary"));
+        String phonenumber = request.getParameter("phonenumber");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        int position_id = Integer.parseInt(request.getParameter("position_id"));
+        PositionMaster positionMaster = new PositionMaster(position_id);
+        int levelMaster_id = Integer.parseInt(request.getParameter("level_id"));
+        LevelMaster levelMaster = new LevelMaster(levelMaster_id);
+        int workPartMaster_id = Integer.parseInt(request.getParameter("workpart_id"));
+        WorkPartMaster workPartMaster = new WorkPartMaster(workPartMaster_id);
+        Employee employee = new Employee(name, birthday, cardid, salary, phonenumber, email, address, positionMaster, levelMaster, workPartMaster);
         try {
-            facilityService.insertService(service);
+            facilityEmployee.insertEmployee(employee);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             System.out.println(throwables.getMessage());
         }
-        listService(request, response);
+        listEmployee(request, response);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ServiceTypeMaster> serviceTypeMasterList = facilityServiceTypeMaster.selectAllServiceTypeMaster();
-        request.setAttribute("serviceTypeMasterList", serviceTypeMasterList);
-        List<RentTypeMaster> rentTypeMasterList = iFacilityRentTypeMaster.selectAllRentTypeMaster();
-        request.setAttribute("rentTypeMasterList", rentTypeMasterList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/service/create.jsp");
+        List<PositionMaster> positionMasterList = facilityPositionMaster.selectAllPosition();
+        request.setAttribute("positionMasterList", positionMasterList);
+        List<LevelMaster> levelMasterList = facilityLevelMaster.selectAllLevel();
+        request.setAttribute("levelMasterList", levelMasterList);
+                List<WorkPartMaster> workPartMasterList = facilityWorkPartMaster.selectAllWorkPart();
+        request.setAttribute("workPartMasterList", workPartMasterList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/employee/create.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void listService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Service> serviceList = facilityService.selectAllService();
-        request.setAttribute("serviceList", serviceList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/service/employee.jsp");
+    private void listEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Employee> employeeList = facilityEmployee.selectAllEmployee();
+        request.setAttribute("employeeList", employeeList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/employee/employee.jsp");
         dispatcher.forward(request, response);
     }
 }

@@ -1,16 +1,17 @@
-package respository.service;
+package respository.employee;
 
+import model.Employee;
 import model.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IServiceRespository {
-    public void insertService(Service service) throws SQLException;
+public interface IEmployeeRespository {
+    public void insertEmployee(Employee employee) throws SQLException;
 
-    public List<Service> selectAllService();
+    public List<Employee> selectAllEmployee();
 
-    public boolean deleteService(int id) throws SQLException;
+    public boolean deleteEmployee(int id) throws SQLException;
 
-    public boolean updateService(Service service) throws SQLException;
+    public boolean updateEmployee(Employee employee) throws SQLException;
 }

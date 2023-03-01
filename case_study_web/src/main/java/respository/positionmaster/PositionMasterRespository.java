@@ -1,5 +1,6 @@
 package respository.positionmaster;
 
+import model.PositionMaster;
 import model.RentTypeMaster;
 import respository.BaseRepository;
 
@@ -10,30 +11,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RentTypeMasterRespository implements IRentTypeMasterRespository {
-    private static final String SELECT_ALL_RENTTYPEMASTER = "select * from renttype_master";
+public class PositionMasterRespository implements IPositionMasterRespository {
+    private static final String SELECT_ALL_POSITIONMASTER = "select * from position_master";
 
-    public RentTypeMasterRespository() {
+    public PositionMasterRespository() {
     }
 
     @Override
-    public List<RentTypeMaster> selectAllRentTypeMaster() {
+    public List<PositionMaster> selectAllPosition() {
 
-        List<RentTypeMaster> rentTypeMasters = new ArrayList<>();
+        List<PositionMaster> positionMasters = new ArrayList<>();
 
         try (Connection connection = BaseRepository.getConnectDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_RENTTYPEMASTER);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_POSITIONMASTER);) {
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int renttype_id = rs.getInt("renttype_id");
-                String type = rs.getString("type");
-                rentTypeMasters.add(new RentTypeMaster(renttype_id, type));
+                int position_id = rs.getInt("position_id");
+                String position = rs.getString("position");
+                positionMasters.add(new PositionMaster(position_id, position));
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return rentTypeMasters;
+        return positionMasters;
     }
 
     private void printSQLException(SQLException ex) {
